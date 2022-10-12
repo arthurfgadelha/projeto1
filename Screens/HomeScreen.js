@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { StyleSheet ,View, Text, FlatList, Image } from "react-native";
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function HomeScreen ({navigation}){
     const [listEmail, setListEmail] = useState([]);
@@ -19,12 +20,17 @@ export default function HomeScreen ({navigation}){
         return <View style={styles.userEmail}>
             <Image style={styles.imgPerfil} source={{uri: item.picture}}/>
                 <View style={styles.textBox}>
-                    <Text style={styles.nome}>{item.from}</Text>
-                    <Text style={styles.titulo}>{item.tittle}</Text>
-                    <Text>{item.summary}</Text>
+                    <View style={styles.nome}>
+                        <Text>{item.from}</Text>
+                        <Text>{item.time}</Text>
+                    </View>
+                        <Text style={styles.titulo}>{item.tittle}</Text>
+                   <View style={styles.resumo}>
+                        <Text>{item.summary}</Text>
+                        <FontAwesome name="star" size={24} style={item.star ? styles.favorito : styles.Nofavorito}/>
+                   </View>
                 </View>
-            
-        </View>;
+             </View> ;
     }
 
     return (
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     userEmail: {
-        height: 60,
+        height: 'auto',
         flexDirection: 'row',
     },
     imgPerfil: {
@@ -56,12 +62,28 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
     textBox: {
-        justifyContent: 'center',
+        flex: 1,
+        padding: 5,
     },
     nome: {
         fontWeight: 'bold',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     titulo: {
         fontWeight: 'bold',
-    }
+    },
+    resumo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    favorito: {
+        color: 'yellow',
+    },
+    Nofavorito: {
+        color: 'gray',
+    },
+ 
+
+
 })
