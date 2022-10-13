@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet ,View, Text, FlatList, Image } from "react-native";
+import { StyleSheet ,View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
+
 
 export default function HomeScreen ({navigation}){
     const [listEmail, setListEmail] = useState([]);
@@ -17,11 +18,11 @@ export default function HomeScreen ({navigation}){
 
 
     function renderItem({item}){
-        return <View style={styles.userEmail}>
+        return <TouchableOpacity style={styles.userEmail} onPress={() => navigation.navigate('EmailScreen', {id: item.id})}  >
             <Image style={styles.imgPerfil} source={{uri: item.picture}}/>
-                <View style={styles.textBox}>
+                <View style={styles.textBox} >
                     <View style={styles.nome}>
-                        <Text>{item.from}</Text>
+                        <Text>De {item.to} Para {item.from}</Text>
                         <Text>{item.time}</Text>
                     </View>
                         <Text style={styles.titulo}>{item.tittle}</Text>
@@ -30,7 +31,7 @@ export default function HomeScreen ({navigation}){
                         <FontAwesome name="star" size={24} style={item.star ? styles.favorito : styles.Nofavorito}/>
                    </View>
                 </View>
-             </View> ;
+             </TouchableOpacity> ;
     }
 
     return (
@@ -83,7 +84,4 @@ const styles = StyleSheet.create({
     Nofavorito: {
         color: 'gray',
     },
- 
-
-
-})
+});
