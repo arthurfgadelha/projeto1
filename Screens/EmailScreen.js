@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, FlatList } from "react-native";
+import { StyleSheet, View, Text, FlatList, Image } from "react-native";
 
 export default function EmailScreen ({ route }){
     const {id} = route.params;
@@ -11,7 +11,7 @@ export default function EmailScreen ({ route }){
         async function getData () {
             const response = await fetch ('https://mobile.ect.ufrn.br:3002/emails/' + id)
             const mensagem = await response.json();
-            setMensagem(mensagem);
+            setMensagem([mensagem]);
         }
         getData();
     }, []);
